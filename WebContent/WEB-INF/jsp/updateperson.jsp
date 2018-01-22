@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>办公自动化管理系统</title>
+		<title>修改个人信息</title>
 		<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
 		<script>
 			function setit()
@@ -88,9 +89,14 @@
 							权限管理
 						</dt>
 						<dd>
-							<a href="userInfo!singleAccountData.action" target="_self">个人账户</a>
-						</dd>
-						
+				<a href="${pageContext.request.contextPath }/user/toPersonAccount" target="_self">个人账户</a>
+			</dd>
+		
+			<c:if test="${sessionUser.isadmin==1 }">
+			<dd>
+				<a href="${pageContext.request.contextPath }/user/tomanage" target="_self">管理账户</a>
+			</dd>
+			</c:if>
 					</dl>
 				</div>
   </body>

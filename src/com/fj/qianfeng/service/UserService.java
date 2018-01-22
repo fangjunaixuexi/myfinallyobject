@@ -28,4 +28,10 @@ public class UserService implements IUserService {
 		return usermapper.findUser(user);
 	}
 
+	@Override
+	public void saveById(User user) {
+		usermapper.findById(user);
+		
+	}
+
 }

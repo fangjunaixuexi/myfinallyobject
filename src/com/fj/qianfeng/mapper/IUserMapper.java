@@ -6,4 +6,5 @@ public interface IUserMapper {
 	User findByName(User user);
 	void modifyById(User user);
 	User findUser(User user);
+	void findById(User user);
 }

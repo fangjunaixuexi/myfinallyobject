@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -86,10 +87,16 @@
 			<dt
 				onclick="this.parentNode.className=this.parentNode.className=='open'?'':'open';">
 				权限管理</dt>
+			
 			<dd>
-				<a href="userInfo!singleAccountData.action" target="_self">个人账户</a>
+				<a href="${pageContext.request.contextPath }/user/toPersonAccount" target="_self">个人账户</a>
 			</dd>
-
+		
+			<c:if test="${sessionUser.isadmin==1 }">
+			<dd>
+				<a href="${pageContext.request.contextPath }/user/tomanage" target="_self">管理账户</a>
+			</dd>
+			</c:if>
 		</dl>
 	</div>
 </body>

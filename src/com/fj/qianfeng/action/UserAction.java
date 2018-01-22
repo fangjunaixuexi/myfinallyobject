@@ -44,7 +44,6 @@ public class UserAction {
 	//跳转主页面
 	@RequestMapping(value="/toindex")
 	public String toindex() {
-		
 		return "index";
 	}
 	
@@ -58,10 +57,10 @@ public class UserAction {
 	public String toupdataperson() {
 		return "updateperson";
 	}
+	//修改个人信息之间的操作
 	@RequestMapping(value="/updateUser")
 	public String updataUser(User user,HttpSession session) {
 	    User findSessionUser = (User) session.getAttribute("sessionUser");
-	    System.out.println(findSessionUser.getUsername()+"==="+findSessionUser.getPassword());
 	    Integer id = findSessionUser.getId();
 	    user.setId(id);
 	    ser.modifyById(user);
@@ -69,5 +68,33 @@ public class UserAction {
 	    User sessionUser = ser.findUser(user);
 	    session.setAttribute("sessionUser", sessionUser);
 		return "updateperson";
+	}
+	//跳转个人账户的页面 toPersonAccount
+	@RequestMapping(value="/toPersonAccount")
+	public String toPersonAccount() {
+		return "PersonAccount";
+	}
+	//跳转修改个人账户的页面toUPPersonAccount
+	@RequestMapping(value="/toUPPersonAccount")
+	public String toUPPersonAccount() {
+		return "UPPersonAccount";
+		
+	}
+	//修改个人账户的操作upDatePerson
+	@RequestMapping(value="/upDatePerson")
+	public String upDatePerson(User user,HttpSession session) {
+	    User findSessionUser = (User) session.getAttribute("sessionUser");
+	    Integer id = findSessionUser.getId();
+	    user.setId(id);
+	    ser.saveById(user);
+		
+	    User sessionUser = ser.findUser(user);
+	    session.setAttribute("sessionUser", sessionUser);
+		return "PersonAccount";
+	}
+	//跳转管理账户页面tomanage
+	@RequestMapping(value="/tomanage")
+	public String tomanage() {
+		return "manage";
 	}
 }

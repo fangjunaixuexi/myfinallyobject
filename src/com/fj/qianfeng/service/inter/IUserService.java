@@ -7,4 +7,5 @@ public interface IUserService {
 	User findByName(User user);
 	void modifyById(User user);
 	User findUser(User user);
+	void saveById(User user);
 }
