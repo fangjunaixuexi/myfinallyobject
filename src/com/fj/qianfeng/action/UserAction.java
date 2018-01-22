@@ -1,6 +1,8 @@
 package com.fj.qianfeng.action;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.Session;
@@ -94,7 +96,23 @@ public class UserAction {
 	}
 	//跳转管理账户页面tomanage
 	@RequestMapping(value="/tomanage")
-	public String tomanage() {
-		return "manage";
+	public String tomanage(HttpSession session) {
+		List<User> listusers = ser.selectAll();
+		for (User user : listusers) {
+			System.out.println(user.getUsername());
+		}
+		session.setAttribute("ListUser", listusers);
+		return "manageAccount";
+	}
+	//添加用户页面toaddManage
+	@RequestMapping(value="/toaddManage")
+	public String toaddManage() {
+		return "addManage";
+	}
+	//添加用户的操作addmanage
+	@RequestMapping(value="/addmanage")
+	public String addmanage() {
+		
+		return "manageAccount";
 	}
 }

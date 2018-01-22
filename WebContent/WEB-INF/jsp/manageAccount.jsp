@@ -5,10 +5,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>主页面</title>
+<title>账户管理</title>
 <link href="${pageContext.request.contextPath }/css/style.css" rel="stylesheet" type="text/css" />
 <script>
 	function setit() {
+		document.forms[0].action="${pageContext.request.contextPath}/user/toaddManage";
 		document.forms[0].submit();
 	}
 </script>
@@ -105,25 +106,27 @@
 				<div class="action">
 					<div class="t">基本信息</div>
 					<div class="pages">
-						<table width="90%" border="0" cellspacing="0" cellpadding="0">
+					
+						<table width="90%" border="1" cellspacing="0" cellpadding="0">
+						<tr>
+							<td>昵称：</td>
+							<td>密码：</td>
+							<td>手机：</td>
+							<td>地址：</td>
+						</tr>
+						<c:forEach items="${ListUser }" var="listuser">
 							<tr>
-								<td align="right" width="30%">昵称：</td>
-								<td align="left"><input type="text" name="u.nickname"
-									value=${sessionUser.username } readonly="readonly" id="nickname" /></td>
+								<td width="25%">${listuser.username }</td>
+								
+								<td  width="25%">${listuser.password }</td>
+										
+								<td  width="25%">${listuser.phone }</td>
+								
+								<td width="25%">${listuser.addres }</td>
 							</tr>
-							<tr>
-								<td align="right" width="30%">手机：</td>
-								<td align="left"><input type="text" name="u.mobile"
-									value=${sessionUser.phone } readonly="readonly" id="u_mobile" /></td>
-							</tr>
-							<tr>
-								<td align="right" width="30%">地址：</td>
-								<td align="left"><input type="text" name="u.address"
-									value= ${sessionUser.addres} readonly="readonly" id="u_address" /></td>
-							</tr>
-
+						</c:forEach>
 						</table>
-
+						<input type="button"  id="save" value="添加用户" onclick="setit()" />
 					</div>
 				</div>
 			</div>

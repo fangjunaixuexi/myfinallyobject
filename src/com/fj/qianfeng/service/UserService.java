@@ -1,5 +1,7 @@
 package com.fj.qianfeng.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,12 @@ public class UserService implements IUserService {
 	public void saveById(User user) {
 		usermapper.findById(user);
 		
+	}
+
+	@Override
+	public List<User> selectAll() {
+		
+		return usermapper.selectAll();
 	}
 
 }
