@@ -27,8 +27,8 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-				href="#" onclick="location.href='loginOut.action'";>注销</a>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="#" onclick="location.href='${pageContext.request.contextPath}/user/tologin'";>注销</a>
 		</div>
 	</div>
 	<form id="myForm" name="myForm" action="userInfo!editData.action"
@@ -44,7 +44,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>办公自动化管理系统</title>
+<title>主页面</title>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -78,7 +78,12 @@
 				onclick="this.parentNode.className=this.parentNode.className=='open'?'':'open';">
 				考勤管理</dt>
 			<dd>
-				<a href="leave.action" target="_self">休假</a>
+				<a href="${pageContext.request.contextPath }/user/toleave" target="_self">休假</a>
+			</dd>
+			<dd>
+			<c:if test="${sessionUser.isadmin==1 }">
+				<a href="${pageContext.request.contextPath }/user/toleaveadmin" target="_self">休假申请</a>
+			</c:if>
 			</dd>
 		</dl>
 

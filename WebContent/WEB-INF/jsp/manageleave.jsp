@@ -5,11 +5,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>添加用户页面</title>
+<title>主页面</title>
 <link href="${pageContext.request.contextPath }/css/style.css" rel="stylesheet" type="text/css" />
 <script>
 	function setit() {
-		document.forms[0].action="/ProjectWorking/user/toindex";
+		document.forms[0].action="${pageContext.request.contextPath}/user/toagree";
+		document.forms[0].submit();
+	}
+	function setit1() {
+		document.forms[0].action="${pageContext.request.contextPath}/user/todisagree";
 		document.forms[0].submit();
 	}
 </script>
@@ -29,10 +33,10 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="#" onclick="location.href='${pageContext.request.contextPath}/user/tologin'";>注销</a>
+		<a href="#" onclick="location.href='${pageContext.request.contextPath}/user/tologin'";>注销</a>
 		</div>
 	</div>
-	<form id="myForm" name="myForm" action="${pageContext.request.contextPath }/user/addmanage"
+	<form id="myForm" name="myForm" action="userInfo!editData.action"
 		method="post">
 		<input type="hidden" name="u.id" value="26" /> <input type="hidden"
 			name="u.sex" value="2" id="u_sex" /> <input type="hidden"
@@ -45,7 +49,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>添加用户</title>
+<title>休假管理页面</title>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -81,6 +85,11 @@
 			<dd>
 				<a href="${pageContext.request.contextPath }/user/toleave" target="_self">休假</a>
 			</dd>
+			<dd>
+			<c:if test="${sessionUser.isadmin==1 }">
+				<a href="${pageContext.request.contextPath }/user/toleaveadmin" target="_self">休假申请</a>
+			</c:if>
+			</dd>
 		</dl>
 
 		<dl>
@@ -103,46 +112,45 @@
 </body>
 				</html>
 
-			 
-					<div class="action">
-						<div class="t">
-							详细信息
-						</div>
-						<div class="pages">
-							<table width="90%" border="0" cellspacing="0" cellpadding="0">
-								<tr >
-									<td align="right" width="30%">昵称：</td><td  align="left"><input type="text" name="username"  id="nickname"/></td>
-								</tr>
-								<tr >
-									<td align="right" width="30%">密码：</td><td  align="left"><input type="text" name="password"/></td>
-								</tr>
-								<tr >
-									<td align="right" width="30%">年龄：</td><td  align="left"><input type="text" name="age" id="age"/></td>
-								</tr>
-								<tr >
-									<td align="right" width="30%">性别：</td><td  align="left">
-									<select name="sex">
-									<option value="男">男</option>
-									<option value="女">女</option>
-									</select>
-									</td>
-								</tr>
-								<tr >
-									<td align="right" width="30%">手机：</td><td  align="left"><input type="text" name="phone"  id="u_mobile"/></td>
-								</tr>
-								<tr >
-									<td align="right" width="30%">地址：</td><td  align="left"><input type="text" name="addres" id="u_address"/></td>
-								</tr>
-								<tr >
-									<td align="center" colspan="2"><br/><input type="button"  id="save" value="返回" onclick="setit()" />
-																		<input type="submit"  id="save" value="保存数据" />
-									</td>
-								</tr>
-								
-								</table>
-								
-						</div>
+				<div class="action">
+					<div class="t">休假信息</div>
+					<div class="pages">
+						<table width="90%" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td width="12%">申请人：</td>
+								<td width="12%">开始时间：</td>
+								<td width="12%">结束时间：</td>
+								<td width="12%">天数：</td>
+								<td width="12%">审核状态：</td>
+								<td width="12%">原因：</td>
+								<td width="12%"></td>
+								<td width="12%"></td>
+							</tr>
+							<c:forEach items="${listVacate}" var="listVacate">
+							<tr>
+								<td>${listVacate.name }</td>
+								<td>${listVacate.start_time } </td>
+								<td>${listVacate.over_time } </td>
+								<td>${listVacate.leave_day } </td>
+								<td> <c:if test="${listVacate.audit==0 }">
+									未审核
+								</c:if>
+								<c:if test="${listVacate.audit==1 }">
+									审核通过
+								 </c:if>
+								  <c:if test="${sessionVacate.audit==2 }">
+									审核未通过
+								 </c:if>
+								</td>
+								<td>${listVacate.leave_cause } </td>
+									<td align="center" colspan="2"><br/><input type="button"  id="save" value="同意" onclick="setit()" /></td>
+									<td align="center" colspan="2"><br/><input type="button"  id="save1" value="不同意" onclick="setit1()" /></td>
+							</tr>
+							</c:forEach>
+						</table>
+
 					</div>
+				</div>
 			</div>
 		</div>
 	</form>

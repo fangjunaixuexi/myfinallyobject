@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fj.qianfeng.model.Vacate;
 import com.fj.qianfeng.model.User;
 import com.fj.qianfeng.service.inter.IUserService;
 
@@ -69,7 +70,7 @@ public class UserAction {
 		
 	    User sessionUser = ser.findUser(user);
 	    session.setAttribute("sessionUser", sessionUser);
-		return "updateperson";
+		return "person";
 	}
 	//跳转个人账户的页面 toPersonAccount
 	@RequestMapping(value="/toPersonAccount")
@@ -111,8 +112,59 @@ public class UserAction {
 	}
 	//添加用户的操作addmanage
 	@RequestMapping(value="/addmanage")
-	public String addmanage() {
-		
-		return "manageAccount";
+	public String addmanage(User user) {
+		ser.addUser(user);
+		return "redirect:tomanage";
+	}
+	//跳转休假页面toleave
+	@RequestMapping(value="/toleave")
+	public String toleave(HttpSession session) {
+		User user=(User) session.getAttribute("sessionUser");
+		String name=user.getUsername();
+		Vacate sessionVacate = ser.findAll(name);
+		session.setAttribute("sessionVacate", sessionVacate);
+		System.out.println(sessionVacate.getName()+""+sessionVacate.getStart_time());
+		return "leave";
+	}
+	//添加请假申请toaddleave
+	@RequestMapping(value="/toaddleave")
+	public String toaddleave() {
+		return "addleave";
+	}
+	//添加申请请假的操作toaddsqlleave
+	@RequestMapping(value="/toaddsqlleave")
+	public String toaddsqlleave(Vacate vacate) {
+		ser.addVacate(vacate);
+		return "leave";
+	}
+	//管理员管理休假申请toleaveadmin
+	@RequestMapping(value="/toleaveadmin")
+	public String toleaveadmin(HttpSession session) {
+		 User user= (User) session.getAttribute("sessionUser");
+		 String username = user.getUsername();
+		List<Vacate> listVacate = ser.manageLeave(username);
+		session.setAttribute("listVacate", listVacate);
+		return "manageleave";
+	}
+	//同意申请休假toagree
+	@RequestMapping(value="/toagree")
+	public String toagree(HttpSession session) {
+	List<Vacate> listVacate = (List<Vacate>) session.getAttribute("listVacate");
+	for (Vacate vacate : listVacate) {
+		String name = vacate.getName();
+		ser.alter(name);
+	}
+		return "redirect:toleave";
+	}
+	
+	//不同意申请休假todisagree
+	@RequestMapping(value="/todisagree")
+	public String todisagree(HttpSession session) {
+		List<Vacate> listVacate = (List<Vacate>) session.getAttribute("listVacate");
+		for (Vacate vacate : listVacate) {
+			String name = vacate.getName();
+			ser.disagree(name);
+		}
+		return "redirect:toleave";
 	}
 }

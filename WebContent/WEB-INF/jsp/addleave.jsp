@@ -5,11 +5,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>添加用户页面</title>
+<title>申请休假</title>
 <link href="${pageContext.request.contextPath }/css/style.css" rel="stylesheet" type="text/css" />
 <script>
 	function setit() {
-		document.forms[0].action="/ProjectWorking/user/toindex";
 		document.forms[0].submit();
 	}
 </script>
@@ -29,10 +28,10 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="#" onclick="location.href='${pageContext.request.contextPath}/user/tologin'";>注销</a>
+		<a href="#" onclick="location.href='${pageContext.request.contextPath}/user/tologin'";>注销</a>
 		</div>
 	</div>
-	<form id="myForm" name="myForm" action="${pageContext.request.contextPath }/user/addmanage"
+	<form id="myForm" name="myForm" action="${pageContext.request.contextPath}/user/toaddsqlleave"
 		method="post">
 		<input type="hidden" name="u.id" value="26" /> <input type="hidden"
 			name="u.sex" value="2" id="u_sex" /> <input type="hidden"
@@ -45,7 +44,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>添加用户</title>
+<title>申请休假</title>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -103,46 +102,42 @@
 </body>
 				</html>
 
-			 
-					<div class="action">
-						<div class="t">
-							详细信息
-						</div>
-						<div class="pages">
-							<table width="90%" border="0" cellspacing="0" cellpadding="0">
-								<tr >
-									<td align="right" width="30%">昵称：</td><td  align="left"><input type="text" name="username"  id="nickname"/></td>
-								</tr>
-								<tr >
-									<td align="right" width="30%">密码：</td><td  align="left"><input type="text" name="password"/></td>
-								</tr>
-								<tr >
-									<td align="right" width="30%">年龄：</td><td  align="left"><input type="text" name="age" id="age"/></td>
-								</tr>
-								<tr >
-									<td align="right" width="30%">性别：</td><td  align="left">
-									<select name="sex">
-									<option value="男">男</option>
-									<option value="女">女</option>
-									</select>
-									</td>
-								</tr>
-								<tr >
-									<td align="right" width="30%">手机：</td><td  align="left"><input type="text" name="phone"  id="u_mobile"/></td>
-								</tr>
-								<tr >
-									<td align="right" width="30%">地址：</td><td  align="left"><input type="text" name="addres" id="u_address"/></td>
-								</tr>
-								<tr >
-									<td align="center" colspan="2"><br/><input type="button"  id="save" value="返回" onclick="setit()" />
-																		<input type="submit"  id="save" value="保存数据" />
-									</td>
-								</tr>
-								
-								</table>
-								
-						</div>
+				<div class="action">
+					<div class="t">基本信息</div>
+					<div class="pages">
+						<table width="90%" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td align="right" width="30%">姓名：</td>
+								<td align="left"><input type="text" name="name"/></td>
+							</tr>
+							<tr>
+								<td align="right" width="30%">开始时间：</td>
+								<td align="left"><input type="text" name="start_time"/></td>
+							</tr>
+							<tr>
+								<td align="right" width="30%">结束时间：</td>
+								<td align="left"><input type="text" name="over_time"/></td>
+							</tr>
+							<tr>
+								<td align="right" width="30%">请假天数：</td>
+								<td align="left"><input type="text" name="leave_day"/></td>
+							</tr>
+							<tr>
+								<td align="right" width="30%">请假原因：</td>
+								<td align="left">
+								<textarea name="leave_cause"></textarea>></td>
+							</tr>
+							<tr>
+								<td align="right" width="30%">审批人：</td>
+								<td align="left"><input type="text" name="admin"/></td>
+							</tr>
+							<tr>
+									<td align="center" colspan="2"><br/><input type="submit"  id="save" value="提交申请" /></td>
+							</tr>
+						</table>
+
 					</div>
+				</div>
 			</div>
 		</div>
 	</form>

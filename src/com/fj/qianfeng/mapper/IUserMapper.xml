@@ -21,4 +21,22 @@
 	<select id="selectAll" parameterType="User" resultType="User">
 		select * from user
 	</select>
+	<insert id="addUser" parameterType="User">
+		insert into user (username,password,age,sex,phone,addres) values (#{username},#{password},#{age},#{sex},#{phone},#{addres})
+	</insert>
+	<select id="findAll" parameterType="String" resultType="Vacate">
+		select name,DATE_FORMAT(start_time,'%Y-%m-%d')  as start_time,DATE_FORMAT(over_time,'%Y-%m-%d') AS over_time,leave_day,leave_cause,admin,audit  from vacate where name=#{name}
+	</select>
+	<insert id="addVacate" parameterType="Vacate">
+		insert into vacate (name,start_time,over_time,leave_day,leave_cause,admin) values (#{name},#{start_time},#{over_time},#{leave_day},#{leave_cause},#{admin})
+	</insert>
+	<select id="manageLeave" parameterType="String" resultType="Vacate">
+		select * from vacate where name=#{username}
+	</select>
+	<update id="alter" parameterType="String">
+		update vacate set audit=1 where name=#{name}
+	</update>
+	<update id="disagree" parameterType="String">
+		update vacate set audit=2 where name=#{name}
+	</update>
 </mapper>

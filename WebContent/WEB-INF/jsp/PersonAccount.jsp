@@ -28,8 +28,8 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-				href="#" onclick="location.href='loginOut.action'";>注销</a>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="#" onclick="location.href='${pageContext.request.contextPath}/user/tologin'";>注销</a>
 		</div>
 	</div>
 	<form id="myForm" name="myForm" action="userInfo!editData.action"
@@ -79,7 +79,12 @@
 				onclick="this.parentNode.className=this.parentNode.className=='open'?'':'open';">
 				考勤管理</dt>
 			<dd>
-				<a href="leave.action" target="_self">休假</a>
+				<a href="${pageContext.request.contextPath }/user/toleave" target="_self">休假</a>
+			</dd>
+			<dd>
+			<c:if test="${sessionUser.isadmin==1 }">
+				<a href="${pageContext.request.contextPath }/user/toleaveadmin" target="_self">休假申请</a>
+			</c:if>
 			</dd>
 		</dl>
 
