@@ -64,14 +64,14 @@
 			<dt
 				onclick="this.parentNode.className=this.parentNode.className=='open'?'':'open';">
 				邮件管理</dt>
-			<dd>
-				<a href="mailWrite.action" target="_self">写邮件</a>
+		<dd>
+				<a href="${pageContext.request.contextPath }/user/toWriteEmail" target="_self">写邮件</a>
 			</dd>
 			<dd>
-				<a href="mailReceive!receive.action" target="_self">收邮件</a>
+				<a href="${pageContext.request.contextPath }/user/toReceiveEmail" target="_self">收邮件</a>
 			</dd>
 			<dd>
-				<a href="mailGarage!garage.action" target="_self">垃圾邮件</a>
+				<a href="${pageContext.request.contextPath }/user/toRubbish" target="_self">垃圾邮件</a>
 			</dd>
 		</dl>
 		<dl>

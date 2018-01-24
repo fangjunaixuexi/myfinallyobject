@@ -5,11 +5,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>休假</title>
+<title>主页面</title>
 <link href="${pageContext.request.contextPath }/css/style.css" rel="stylesheet" type="text/css" />
 <script>
 	function setit() {
-		document.forms[0].action="${pageContext.request.contextPath}/user/toaddleave";
+		document.forms[0].action=""
 		document.forms[0].submit();
 	}
 </script>
@@ -45,7 +45,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>休假管理页面</title>
+<title>垃圾邮件</title>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -64,7 +64,7 @@
 			<dt
 				onclick="this.parentNode.className=this.parentNode.className=='open'?'':'open';">
 				邮件管理</dt>
-		<dd>
+			<dd>
 				<a href="${pageContext.request.contextPath }/user/toWriteEmail" target="_self">写邮件</a>
 			</dd>
 			<dd>
@@ -109,38 +109,41 @@
 				</html>
 
 				<div class="action">
-					<div class="t">休假信息</div>
+					<div class="t">垃圾邮件</div>
 					<div class="pages">
 						<table width="90%" border="0" cellspacing="0" cellpadding="0">
+						<c:forEach items="${findEmail}" var="findEmail">
+						<c:if test="${findEmail.isdelete==1 }">
 							<tr>
-								<td width="16%">申请人：</td>
-								<td width="16%">开始时间：</td>
-								<td width="16%">结束时间：</td>
-								<td width="16%">天数：</td>
-								<td width="16%">审核状态：</td>
-								<td width="16%">原因：</td>
-								
+								<td align="right" width="30%">发件人:</td>
+								<td align="left">${findEmail.send_name}</td>
 							</tr>
 							<tr>
-								<td>${sessionVacate.name }</td>
-								<td>${sessionVacate.start_time } </td>
-								<td>${sessionVacate.over_time } </td>
-								<td>${sessionVacate.leave_day } </td>
-								<td> <c:if test="${sessionVacate.audit==0 }">
-									未审核
+								<td align="right" width="30%">邮件标题:</td>
+								<td align="left"><a style="color: red" href="${pageContext.request.contextPath }/user/toEmailDetails?id=${findEmail.id}">${findEmail.email_title}</a></td>
+							</tr>
+							<tr>
+								<td align="right" width="30%">邮件内容:</td>
+								<td align="left">${findEmail.email_content}</td>
+							</tr>
+							<tr>
+								<td align="right" width="30%">下载附件:</td>
+								<td align="left">${findEmail.accessory}</td>
+							</tr>
+							<tr>
+								<c:if test="${findEmail.isread==0 }">
+								<td align="right" width="30%">未读</td>
 								</c:if>
-								<c:if test="${sessionVacate.audit==1 }">
-									审核通过
-								 </c:if>
-								 <c:if test="${sessionVacate.audit==2 }">
-									审核未通过
-								 </c:if>
-								</td>
-								<td>${sessionVacate.leave_cause } </td>
+								<c:if test="${findEmail.isread==1 }">
+								<td align="right" width="30%">已读</td>
+								</c:if>
 							</tr>
 							<tr>
-									<td align="center" colspan="2"><br/><input type="button"  id="save" value="申请休假" onclick="setit()" /></td>
+								<td align="center" colspan="2"><a href="${pageContext.request.contextPath }/user/toRestore?id=${findEmail.id}"><input type="button"  value="还原"  /></a></td>
+								<td align="center" colspan="2"><a href="${pageContext.request.contextPath }/user/DeleteEmail?id=${findEmail.id}"><input type="button"  value="彻底删除" /></a></td>
 							</tr>
+							</c:if>
+							</c:forEach>
 						</table>
 
 					</div>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.fj.qianfeng.mapper.IUserMapper;
 import com.fj.qianfeng.model.Vacate;
+import com.fj.qianfeng.model.Email;
 import com.fj.qianfeng.model.User;
 import com.fj.qianfeng.service.inter.IUserService;
 
@@ -76,6 +77,46 @@ public class UserService implements IUserService {
 	@Override
 	public void disagree(String name) {
 		usermapper.disagree(name);
+	}
+
+	@Override
+	public void saveEmail(Email email) {
+		usermapper.saveEmail(email);
+		
+	}
+
+	@Override
+	public List<Email> findEmail(String username) {
+		return usermapper.findEmail(username);
+		
+	}
+
+	@Override
+	public void toDelectBox(Email email) {
+		usermapper.toDelectBox(email);
+		
+	}
+
+	@Override
+	public Email toEmailDetails(Email email) {
+		return usermapper.toEmailDetails(email);
+	}
+
+	@Override
+	public void toRead(Email email) {
+		usermapper.toRead(email);
+		
+	}
+
+	@Override
+	public void toRestore(Email email) {
+		usermapper.toRestore(email);
+		
+	}
+
+	@Override
+	public void DeleteEmail(Email email) {
+		usermapper.DeleteEmail(email);
 	}
 
 }

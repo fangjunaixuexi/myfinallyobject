@@ -1,17 +1,27 @@
 package com.fj.qianfeng.action;
 
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLEncoder;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.catalina.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fj.qianfeng.model.Vacate;
+import com.fj.qianfeng.model.Email;
 import com.fj.qianfeng.model.User;
 import com.fj.qianfeng.service.inter.IUserService;
 
@@ -166,5 +176,105 @@ public class UserAction {
 			ser.disagree(name);
 		}
 		return "redirect:toleave";
+	}
+	//跳转写邮件的页面toWriteEmail
+	@RequestMapping(value="/toWriteEmail")
+	public String toWriteEmail() {
+		return "WriteEmail";
+	}
+	//上传文件sendEmail
+	// 发送邮件
+	@RequestMapping(value="/sendEmail")
+	public String sendEmail(User user, Email email, HttpSession session, @RequestParam("file") MultipartFile file)
+				throws Exception, IOException {
+			if (!file.isEmpty()) {
+				// String picName = UUID.randomUUID().toString();
+				// 截取文件的扩展名(如.jpg)
+				String oriName = file.getOriginalFilename();
+				System.out.println(oriName);
+				file.transferTo(new File("d:/" + file.getOriginalFilename()));
+				email.setAccessory(oriName);;
+			}
+			User usersession = (User) session.getAttribute("sessionUser");
+			String send_name = usersession.getUsername();
+			email.setSend_name(send_name);
+			ser.saveEmail(email);
+			return "index";
+		}
+	
+	
+	//接收邮件toReceiveEmail
+	@RequestMapping(value="/toReceiveEmail")
+	public String toReceiveEmail(HttpSession session) {
+		User user=(User) session.getAttribute("sessionUser");
+		String username = user.getUsername();
+		List<Email> findEmail = ser.findEmail(username);
+		session.setAttribute("findEmail", findEmail);
+		return "ReceiveEmail";
+	}
+	//下载附件download
+	@RequestMapping(value="/download")
+	public void down(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String file = request.getParameter("accessory");
+		// 拼接路劲
+		String fileName = "d:/" + file;
+		// 获取输入流
+		InputStream bis = new BufferedInputStream(new FileInputStream(new File(fileName)));
+		// 假如以中文名下载的话
+		String filenameDown = file;
+		// 转码，免得文件名中文乱码
+		filenameDown = URLEncoder.encode(filenameDown, "iso-8859-1");
+		// 设置文件下载头		
+		response.addHeader("Content-Disposition", "attachment;filename=" + filenameDown);
+		// 1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
+		response.setContentType("multipart/form-data");
+		BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());
+		int len = 0;
+		while ((len = bis.read()) != -1) {
+			out.write(len);
+			out.flush();
+		}
+		out.close();
+	}
+		//移除至垃圾箱toDeleteBox
+	@RequestMapping(value="/toDeleteBox")
+	public String toDeleteBox(Email email) {
+		ser.toDelectBox(email);
+		return "redirect:toReceiveEmail";
+	}
+	//邮件详情页toEmailDetails
+	@RequestMapping(value="/toEmailDetails")
+	public String toEmailDetails(Email email,HttpSession session) {
+		Email sessionEmail=ser.toEmailDetails(email);
+		session.setAttribute("sessionEmail", sessionEmail);
+		return "EmailDetails";
+	}
+	
+	//已读操作toRead
+	@RequestMapping(value="/toRead")
+	public String toRead(Email email) {
+		ser.toRead(email);
+		return "redirect:toReceiveEmail";
+	}
+	//进入垃圾邮件页面toRubbish
+	@RequestMapping(value="/toRubbish")
+	public String toRubbish(HttpSession session) {
+		User user=(User) session.getAttribute("sessionUser");
+		String username = user.getUsername();
+		List<Email> findEmail = ser.findEmail(username);
+		session.setAttribute("findEmail", findEmail);
+		return "Rubbish";
+	}
+	//还原操作toRestore
+	@RequestMapping(value="/toRestore")
+	public String toRestore(Email email) {
+		ser.toRestore(email);
+		return "redirect:toReceiveEmail";
+	}
+	//彻底删除邮件DeleteEmail
+	@RequestMapping(value="/DeleteEmail")
+	public String DeleteEmail(Email email) {
+		ser.DeleteEmail(email);
+		return "redirect:toRubbish";
 	}
 }

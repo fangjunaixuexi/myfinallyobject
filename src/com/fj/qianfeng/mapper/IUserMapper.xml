@@ -39,4 +39,30 @@
 	<update id="disagree" parameterType="String">
 		update vacate set audit=2 where name=#{name}
 	</update>
+	
+	<insert id="saveEmail" parameterType="Email">
+	insert into email (email_name,email_title,email_content,accessory,send_name) values (#{email_name},#{email_title},#{email_content},#{accessory},#{send_name})
+	</insert>
+	
+	<select id="findEmail" parameterType="String" resultType="Email">
+		select * from email where email_name=#{username}
+	</select>
+	
+	<update id="toDelectBox" parameterType="Email">
+		update email set isdelete=1 where id=#{id}
+	</update>
+	
+	<select id="toEmailDetails" parameterType="Email" resultType="Email">
+		select * from email where id=#{id}
+	</select>
+	<update id="toRead" parameterType="Email">
+		update email set isread=1 id=#{id}
+	</update>
+	
+	 <update id="toRestore" parameterType="Email">
+		update email set isdelete=0 where id=#{id}
+	</update>
+	<delete id="DeleteEmail" parameterType="Email">
+		delete from email where id=#{id}
+	</delete>
 </mapper>

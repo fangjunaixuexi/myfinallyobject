@@ -5,11 +5,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>休假</title>
+<title>主页面</title>
 <link href="${pageContext.request.contextPath }/css/style.css" rel="stylesheet" type="text/css" />
 <script>
 	function setit() {
-		document.forms[0].action="${pageContext.request.contextPath}/user/toaddleave";
 		document.forms[0].submit();
 	}
 </script>
@@ -32,7 +31,7 @@
 		<a href="#" onclick="location.href='${pageContext.request.contextPath}/user/tologin'";>注销</a>
 		</div>
 	</div>
-	<form id="myForm" name="myForm" action="userInfo!editData.action"
+	<form id="myForm" name="myForm" enctype="multipart/form-data" action="${pageContext.request.contextPath}/user/sendEmail"
 		method="post">
 		<input type="hidden" name="u.id" value="26" /> <input type="hidden"
 			name="u.sex" value="2" id="u_sex" /> <input type="hidden"
@@ -45,7 +44,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>休假管理页面</title>
+<title>发邮件</title>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -64,7 +63,7 @@
 			<dt
 				onclick="this.parentNode.className=this.parentNode.className=='open'?'':'open';">
 				邮件管理</dt>
-		<dd>
+			<dd>
 				<a href="${pageContext.request.contextPath }/user/toWriteEmail" target="_self">写邮件</a>
 			</dd>
 			<dd>
@@ -109,37 +108,27 @@
 				</html>
 
 				<div class="action">
-					<div class="t">休假信息</div>
+					<div class="t">发送邮件</div>
 					<div class="pages">
 						<table width="90%" border="0" cellspacing="0" cellpadding="0">
 							<tr>
-								<td width="16%">申请人：</td>
-								<td width="16%">开始时间：</td>
-								<td width="16%">结束时间：</td>
-								<td width="16%">天数：</td>
-								<td width="16%">审核状态：</td>
-								<td width="16%">原因：</td>
-								
+								<td align="right" width="30%">收件人:</td>
+								<td align="left"><input type="text" name="email_name" value=""/></td>
 							</tr>
 							<tr>
-								<td>${sessionVacate.name }</td>
-								<td>${sessionVacate.start_time } </td>
-								<td>${sessionVacate.over_time } </td>
-								<td>${sessionVacate.leave_day } </td>
-								<td> <c:if test="${sessionVacate.audit==0 }">
-									未审核
-								</c:if>
-								<c:if test="${sessionVacate.audit==1 }">
-									审核通过
-								 </c:if>
-								 <c:if test="${sessionVacate.audit==2 }">
-									审核未通过
-								 </c:if>
-								</td>
-								<td>${sessionVacate.leave_cause } </td>
+								<td align="right" width="30%">邮件标题:</td>
+								<td align="left"><input type="text" name="email_title" value="" /></td>
 							</tr>
 							<tr>
-									<td align="center" colspan="2"><br/><input type="button"  id="save" value="申请休假" onclick="setit()" /></td>
+								<td align="right" width="30%">邮件内容:</td>
+								<td align="left"><textarea name="email_content" cols="22" rows="10" ></textarea></td>
+							</tr>
+							<tr>
+								<td align="right" width="30%">上传附件:</td>
+								<td align="left"><input type="file" name="file" /></td>
+							</tr>
+							<tr>
+								<td align="center" colspan="2"><input type="submit"  value="发送邮件"  /></td>
 							</tr>
 						</table>
 
