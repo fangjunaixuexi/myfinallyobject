@@ -124,8 +124,12 @@
 
 								<tr >
 									<td align="right" width="30%">性别：</td><td  align="left">
-									
-										<input type="text" name="sex" value=${sessionUser.sex} id=""/>
+										<select name="sex">
+										<option>${sessionUser.sex}</option>
+										<option>男</option>
+										<option>女</option>
+										</select>
+										
 									
 									</td>
 								</tr>

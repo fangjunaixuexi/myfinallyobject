@@ -120,7 +120,7 @@ input.login-sub {
 											url : "${pageContext.request.contextPath}/user/login",
 											success : function(rec) {
 												if(rec=="0"){
-													$("#mess").html("用户名或密码错误");
+													$("#message").html("用户名或密码错误");
 												}else{
 													location.href = "${pageContext.request.contextPath}/user/toindex"
 												}	

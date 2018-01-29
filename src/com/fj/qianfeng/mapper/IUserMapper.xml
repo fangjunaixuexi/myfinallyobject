@@ -22,7 +22,7 @@
 		select * from user
 	</select>
 	<insert id="addUser" parameterType="User">
-		insert into user (username,password,age,sex,phone,addres) values (#{username},#{password},#{age},#{sex},#{phone},#{addres})
+		insert into user(username,password,age,phone,addres,sex) values (#{username},#{password},#{age},#{phone},#{addres},#{sex})
 	</insert>
 	<select id="findAll" parameterType="String" resultType="Vacate">
 		select name,DATE_FORMAT(start_time,'%Y-%m-%d')  as start_time,DATE_FORMAT(over_time,'%Y-%m-%d') AS over_time,leave_day,leave_cause,admin,audit  from vacate where name=#{name}
@@ -56,7 +56,7 @@
 		select * from email where id=#{id}
 	</select>
 	<update id="toRead" parameterType="Email">
-		update email set isread=1 id=#{id}
+		update email set isread=1 where id=#{id}
 	</update>
 	
 	 <update id="toRestore" parameterType="Email">
@@ -65,4 +65,10 @@
 	<delete id="DeleteEmail" parameterType="Email">
 		delete from email where id=#{id}
 	</delete>
+	<select id="findUsername" resultType="User">
+	select username from user
+	</select>
+	<select id="findIsadmin" resultType="User">
+	select username from user where isadmin=1
+	</select>
 </mapper>

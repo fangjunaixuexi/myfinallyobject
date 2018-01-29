@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>主页面</title>
+<title>写邮件</title>
 <link href="${pageContext.request.contextPath }/css/style.css" rel="stylesheet" type="text/css" />
 <script>
 	function setit() {
@@ -111,10 +111,23 @@
 					<div class="t">发送邮件</div>
 					<div class="pages">
 						<table width="90%" border="0" cellspacing="0" cellpadding="0">
+						
 							<tr>
+						
 								<td align="right" width="30%">收件人:</td>
-								<td align="left"><input type="text" name="email_name" value=""/></td>
+								<td align="left">
+								<select name="email_name">
+								<c:forEach items="${Listusername}" var="user">
+								<option>
+									${user.username }
+								</option>
+								</c:forEach>
+								</select>
+								</td>
+								
+							
 							</tr>
+						
 							<tr>
 								<td align="right" width="30%">邮件标题:</td>
 								<td align="left"><input type="text" name="email_title" value="" /></td>
@@ -125,10 +138,10 @@
 							</tr>
 							<tr>
 								<td align="right" width="30%">上传附件:</td>
-								<td align="left"><input type="file" name="file" /></td>
+								<td align="left"><input type="file" name="file" onclick="upload(this)" /></td>
 							</tr>
 							<tr>
-								<td align="center" colspan="2"><input type="submit"  value="发送邮件"  /></td>
+								<td align="center" colspan="2"><input type="submit"  value="发送邮件"  name="sendEmail" /></td>
 							</tr>
 						</table>
 
@@ -138,7 +151,17 @@
 		</div>
 	</form>
 	<div class="copyright">Copyright &nbsp; &copy; &nbsp;</div>
-
+<script>
+function upload(ele){
+	
+	if(ele.files[0].size>9437184){
+		alert("文件不允许超过9M");
+		$("#sendEmail").attr('disabled',true);  
+	}else{
+		$("#sendEmail").attr('disabled',false);
+	}
+}
+</script>
 </body>
 </html>
 

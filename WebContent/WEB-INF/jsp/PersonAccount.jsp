@@ -122,7 +122,7 @@
 								<tr >
 									<td align="right" width="30%">密码：</td>
 									<td  align="left">
-										<input type="text" name="" value=${sessionUser.password} readonly="readonly" id=""/>
+										<input type="password" name="" value=${sessionUser.password} readonly="readonly" id=""/>
 									</td>
 								</tr>
 								<tr >

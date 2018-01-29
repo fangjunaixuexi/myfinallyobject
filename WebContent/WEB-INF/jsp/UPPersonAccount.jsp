@@ -120,9 +120,9 @@
 									<input type="text" name="username" value=${sessionUser.username}  id="nickname"/></td>
 								</tr>
 								<tr >
-									<td align="right" width="30%">密码：</td>
+									<td align="right" width="30%">新密码：</td>
 									<td  align="left">
-										<input type="text" name="password" value=${sessionUser.password}  id=""/>
+										<input type="password" name="password" value=${sessionUser.password}  id=""/>
 									</td>
 								</tr>
 								<tr >

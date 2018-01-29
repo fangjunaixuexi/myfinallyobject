@@ -26,4 +26,6 @@ public interface IUserService {
 	void toRead(Email email);
 	void toRestore(Email email);
 	void DeleteEmail(Email email);
+	List<User> findUsername();
+	List<User> findIsadmin();
 }

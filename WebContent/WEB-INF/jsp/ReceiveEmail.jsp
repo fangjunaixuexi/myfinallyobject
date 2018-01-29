@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>主页面</title>
+<title>接收邮件</title>
 <link href="${pageContext.request.contextPath }/css/style.css" rel="stylesheet" type="text/css" />
 <script>
 	function setit() {
@@ -139,8 +139,8 @@
 								</c:if>
 							</tr>
 							<tr>
-								<td align="center" colspan="2"><a href="${pageContext.request.contextPath }/user/toDeleteBox?id=${findEmail.id}"><input type="button"  value="移除至垃圾箱"  /></a></td>
-								<td align="center" colspan="2"><a href="${pageContext.request.contextPath }/user/toRead?id=${findEmail.id}"><input type="button"  value="已读" /></a></td>
+								<td align="center" colspan="2"><a onclick="deleteEmail('${findEmail.id}')" ><input type="button"  value="移除至垃圾箱"  /></a></td>
+							
 							</tr>
 							</c:if>
 							</c:forEach>
@@ -152,7 +152,15 @@
 		</div>
 	</form>
 	<div class="copyright">Copyright &nbsp; &copy; &nbsp;</div>
-
+<script type="text/javascript">
+		function deleteEmail(id) {
+			var con = confirm("确定放入垃圾箱?"); //在页面上弹出对话框
+			if (con == true) {
+				location.href = "${pageContext.request.contextPath }/user/toDeleteBox?id="
+						+id;
+			}
+		}
+	</script>
 </body>
 </html>
 

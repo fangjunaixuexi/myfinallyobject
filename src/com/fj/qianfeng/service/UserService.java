@@ -119,4 +119,16 @@ public class UserService implements IUserService {
 		usermapper.DeleteEmail(email);
 	}
 
+	@Override
+	public List<User> findUsername() {
+		
+		return usermapper.findUsername();
+	}
+
+	@Override
+	public List<User> findIsadmin() {
+		
+		return usermapper.findIsadmin();
+	}
+
 }

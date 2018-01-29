@@ -80,6 +80,11 @@
 			<dd>
 				<a href="${pageContext.request.contextPath }/user/toleave" target="_self">休假</a>
 			</dd>
+			<dd>
+			<c:if test="${sessionUser.isadmin==1 }">
+				<a href="${pageContext.request.contextPath }/user/toleaveadmin" target="_self">休假申请</a>
+			</c:if>
+			</dd>
 		</dl>
 
 		<dl>
@@ -108,28 +113,32 @@
 						<table width="90%" border="0" cellspacing="0" cellpadding="0">
 							<tr>
 								<td align="right" width="30%">姓名：</td>
-								<td align="left"><input type="text" name="name"/></td>
+								<td align="left"><input type="text" name="name" value="${username.username }"  readonly="readonly"/><label style="color: red">*</label></td>
 							</tr>
 							<tr>
 								<td align="right" width="30%">开始时间：</td>
-								<td align="left"><input type="text" name="start_time"/></td>
+								<td align="left"><input type="date" name="start_time"/><label style="color: red">*</label></td>
 							</tr>
 							<tr>
 								<td align="right" width="30%">结束时间：</td>
-								<td align="left"><input type="text" name="over_time"/></td>
+								<td align="left"><input type="date" name="over_time"/><label style="color: red">*</label></td>
 							</tr>
 							<tr>
 								<td align="right" width="30%">请假天数：</td>
-								<td align="left"><input type="text" name="leave_day"/></td>
+								<td align="left"><input type="text" name="leave_day"/><label style="color: red">*</label></td>
 							</tr>
 							<tr>
 								<td align="right" width="30%">请假原因：</td>
 								<td align="left">
-								<textarea name="leave_cause"></textarea>></td>
+								<textarea name="leave_cause"></textarea><label style="color: red">*</label></td>
 							</tr>
 							<tr>
 								<td align="right" width="30%">审批人：</td>
-								<td align="left"><input type="text" name="admin"/></td>
+								<td align="left"><select name="admin">
+								<c:forEach items="${useradmin}" var="useradmin">
+								<option>${useradmin.username}</option>
+								</c:forEach>
+								</select><label style="color: red">*</label></td>
 							</tr>
 							<tr>
 									<td align="center" colspan="2"><br/><input type="submit"  id="save" value="提交申请" /></td>

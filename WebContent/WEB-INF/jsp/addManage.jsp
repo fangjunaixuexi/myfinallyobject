@@ -13,6 +13,12 @@
 		document.forms[0].submit();
 	}
 </script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/jquery-1.8.3.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/jquery.validate.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/messages_zh.js"></script>
 </head>
 
 <body>
@@ -111,31 +117,33 @@
 						<div class="pages">
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr >
-									<td align="right" width="30%">昵称：</td><td  align="left"><input type="text" name="username"  id="nickname"/></td>
+									<td align="right" width="30%">昵称：</td><td  align="left"><input type="text" name="username" id="username" /><label style="color: red">*</label></td>
+									
 								</tr>
 								<tr >
-									<td align="right" width="30%">密码：</td><td  align="left"><input type="text" name="password"/></td>
+									<td align="right" width="30%">密码：</td><td  align="left"><input type="text" name="password" id="password"/><label style="color: red">*</label></td>
 								</tr>
 								<tr >
-									<td align="right" width="30%">年龄：</td><td  align="left"><input type="text" name="age" id="age"/></td>
+									<td align="right" width="30%">年龄：</td><td  align="left"><input type="text" name="age" id="age" /></td>
 								</tr>
 								<tr >
 									<td align="right" width="30%">性别：</td><td  align="left">
-									<select name="sex">
-									<option value="男">男</option>
-									<option value="女">女</option>
+									<select name="sex" id="sex">
+									<option value='男'>男</option>
+									<option value='女'>女</option>
 									</select>
 									</td>
 								</tr>
 								<tr >
-									<td align="right" width="30%">手机：</td><td  align="left"><input type="text" name="phone"  id="u_mobile"/></td>
+									<td align="right" width="30%">手机：</td><td  align="left"><input type="text" name="phone" id="phone"  /></td>
 								</tr>
 								<tr >
-									<td align="right" width="30%">地址：</td><td  align="left"><input type="text" name="addres" id="u_address"/></td>
+									<td align="right" width="30%">地址：</td><td  align="left"><input type="text" name="addres" id="addres" /></td>
 								</tr>
 								<tr >
-									<td align="center" colspan="2"><br/><input type="button"  id="save" value="返回" onclick="setit()" />
-																		<input type="submit"  id="save" value="保存数据" />
+									<td align="center" colspan="2"><br/>
+									<input type="button"   value="返回" onclick="setit()" />
+									<input type="submit"  id="save" value="保存数据" />
 									</td>
 								</tr>
 								
@@ -147,7 +155,47 @@
 		</div>
 	</form>
 	<div class="copyright">Copyright &nbsp; &copy; &nbsp;</div>
+<script type="text/javascript">
+$(function() {
+	$("#myForm").validate({
+						rules : {
+							username:{
+								required:true
+							},
+							password:{
+								required:true
+							},
+						
+							age:{
+								required:true
+							},
+							phone:{
+								required:true,
+							 	digits:true,
+								minlength:11 
+							}
+							},
+						messages : {
+							username :{
+								required:"用户名不能为空"
+								},
+							password:{
+									required:"密码不能为空"
+								},
+							age:{
+									required:"年龄不能为空"
+									},
+							phone:{
+							required:"手机号不能为空",
+							digits:"手机号必须是整数",
+							minlength:"长度在11位"
+									}
+						}
+			});
+})
 
+
+</script>
 </body>
 </html>
 

@@ -109,9 +109,6 @@ public class UserAction {
 	@RequestMapping(value="/tomanage")
 	public String tomanage(HttpSession session) {
 		List<User> listusers = ser.selectAll();
-		for (User user : listusers) {
-			System.out.println(user.getUsername());
-		}
 		session.setAttribute("ListUser", listusers);
 		return "manageAccount";
 	}
@@ -124,7 +121,8 @@ public class UserAction {
 	@RequestMapping(value="/addmanage")
 	public String addmanage(User user) {
 		ser.addUser(user);
-		return "redirect:tomanage";
+//		return "redirect:tomanage";
+		return "tomanage";
 	}
 	//跳转休假页面toleave
 	@RequestMapping(value="/toleave")
@@ -133,19 +131,23 @@ public class UserAction {
 		String name=user.getUsername();
 		Vacate sessionVacate = ser.findAll(name);
 		session.setAttribute("sessionVacate", sessionVacate);
-		System.out.println(sessionVacate.getName()+""+sessionVacate.getStart_time());
+	
 		return "leave";
 	}
 	//添加请假申请toaddleave
 	@RequestMapping(value="/toaddleave")
-	public String toaddleave() {
+	public String toaddleave(HttpSession session) {
+		User username = (User) session.getAttribute("sessionUser");
+		session.setAttribute("username", username);
+		List<User> useradmin=ser.findIsadmin();
+		session.setAttribute("useradmin", useradmin);
 		return "addleave";
 	}
 	//添加申请请假的操作toaddsqlleave
 	@RequestMapping(value="/toaddsqlleave")
 	public String toaddsqlleave(Vacate vacate) {
 		ser.addVacate(vacate);
-		return "leave";
+		return "redirect:toaddleave";
 	}
 	//管理员管理休假申请toleaveadmin
 	@RequestMapping(value="/toleaveadmin")
@@ -179,7 +181,20 @@ public class UserAction {
 	}
 	//跳转写邮件的页面toWriteEmail
 	@RequestMapping(value="/toWriteEmail")
-	public String toWriteEmail() {
+	public String toWriteEmail(HttpSession session) {
+		List<User> Listusername = ser.findUsername();
+		for (User ww : Listusername) {
+			String username = ww.getUsername();
+			System.out.println(username);
+		}
+		session.setAttribute("Listusername", Listusername);
+		List<User> attribute =  (List<User>) session.getAttribute("Listusername");
+		for (User user : attribute) {
+			String username = user.getUsername();
+			System.out.println("=====================");
+			System.out.println(username);
+		}
+		
 		return "WriteEmail";
 	}
 	//上传文件sendEmail
@@ -247,15 +262,10 @@ public class UserAction {
 	public String toEmailDetails(Email email,HttpSession session) {
 		Email sessionEmail=ser.toEmailDetails(email);
 		session.setAttribute("sessionEmail", sessionEmail);
+		ser.toRead(email);
 		return "EmailDetails";
 	}
 	
-	//已读操作toRead
-	@RequestMapping(value="/toRead")
-	public String toRead(Email email) {
-		ser.toRead(email);
-		return "redirect:toReceiveEmail";
-	}
 	//进入垃圾邮件页面toRubbish
 	@RequestMapping(value="/toRubbish")
 	public String toRubbish(HttpSession session) {

@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>主页面</title>
+<title>邮件详情</title>
 <link href="${pageContext.request.contextPath }/css/style.css" rel="stylesheet" type="text/css" />
 <script>
 	function setit() {
@@ -112,32 +112,32 @@
 					<div class="t">邮件详情</div>
 					<div class="pages">
 						<table width="90%" border="0" cellspacing="0" cellpadding="0">
-						<c:forEach items="${findEmail}" var="findEmail">
-						<c:if test="${findEmail.isdelete==0 }">
+						
+						<c:if test="${sessionEmail.isdelete==0 }">
 							<tr>
 								<td align="right" width="30%">发件人:</td>
-								<td align="left">${findEmail.send_name}</td>
+								<td align="left">${sessionEmail.send_name}</td>
 							</tr>
 							<tr>
 								<td align="right" width="30%">邮件标题:</td>
-								<td align="left">${findEmail.email_title}</td>
+								<td align="left">${sessionEmail.email_title}</td>
 							</tr>
 							</br>
 							<tr>
 								<td align="right" width="30%">邮件内容:</td>
-								<td align="left"><textarea readonly="readonly">${findEmail.email_content}</textarea></td>
+								<td align="left"><textarea readonly="readonly">${sessionEmail.email_content}</textarea></td>
 							</tr>
 							</br>
 							<tr>
 								<td align="right" width="30%">下载附件:</td>
-								<td align="left"><a href="${pageContext.request.contextPath }/user/download?accessory=${findEmail.accessory}">${findEmail.accessory}</a></td>
+								<td align="left"><a href="${pageContext.request.contextPath }/user/download?accessory=${sessionEmail.accessory}">${sessionEmail.accessory}</a></td>
 							</tr>
 							</br>
 							<tr>
-								<c:if test="${findEmail.isread==0 }">
+								<c:if test="${sessionEmail.isread==0 }">
 								<td align="right" width="30%">未读</td>
 								</c:if>
-								<c:if test="${findEmail.isread==1 }">
+								<c:if test="${sessionEmail.isread==1 }">
 								<td align="right" width="30%">已读</td>
 								</c:if>
 							</tr>
@@ -145,7 +145,7 @@
 								<td align="center" colspan="2"><a href="${pageContext.request.contextPath }/user/toReceiveEmail"><input type="button"  value="返回"  /></a></td>
 							</tr>
 							</c:if>
-							</c:forEach>
+							
 						</table>
 
 					</div>
